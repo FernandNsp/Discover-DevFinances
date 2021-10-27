@@ -21,6 +21,20 @@ header{
 	padding: 2rem 0 10rem;
 }
 
+.sr-only{ /* mantem para leitores de tela */
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	
+	padding: 0;
+	margin: -1px;
+	border-width: 0;
+
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+}
+
 .container{
 	width: min(90vw, 800px);
 	margin: auto; 
