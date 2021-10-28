@@ -1,5 +1,8 @@
 :root{
 	--dark-blue: #363F5F;
+	--green: #49AA26;
+	--light-green: #3dd705;
+	--red: #e92929;
 }
 
 *{
@@ -59,17 +62,50 @@ h2{
 
 /* Links e Buttons ------------------ */
 a{
-	color: #49AA26;
+	color: var(--green);
 	text-decoration: none;
 }
 
 a:hover{
-	color: #3dd705;
+	color: var(--light-green);
+}
+
+button{
+	color: white;
+	background: var(--green);
+
+	width: 100%;
+	height: 50px;
+	border: none;
+	border-radius: .25rem;
+
+	cursor: pointer;
+}
+
+button:hover{
+	background: var(--light-green);
 }
 
 .button.new{
 	display: inline-block;
 	margin-bottom: .8rem;
+}
+
+.button.cancel{
+	color: var(--red);
+	opacity: .6;
+	
+	height: 50px;
+	border: 2px var(--red) solid;
+	border-radius: .25rem;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.button.cancel:hover{
+	opacity: 1;
 }
 
 /* MAIN ==================== */
@@ -111,7 +147,7 @@ a:hover{
 
 .card.total{
 	color: #FFF;
-	background: #49AA26;
+	background: var(--green);
 }
 
 /* Table ------------------ */
@@ -119,7 +155,6 @@ a:hover{
 	display: block;
 	width: 100%;
 	overflow-x: auto;
-
 }
 
 #data-table{
@@ -146,7 +181,6 @@ table th{
 	padding: 1rem 2rem;
 }
 
-
 table tbody tr{
 	opacity: .7;
 }
@@ -160,7 +194,6 @@ table tbody td{
 	padding: 1rem 2rem;	
 }
 
-
 td.description{
 	color: var(--dark-blue);
 }
@@ -170,8 +203,71 @@ td.income{
 }
 
 td.expense{
-	color: #e92929;
+	color: var(--red);
 }
+
+/* MODAL ==================== */
+.modal-overlay{
+	background-color: rgba(0, 0, 0, .7);
+	width: 100%;
+	height: 100%;
+	
+	position: fixed;
+	top: 0;
+	opacity: 0;
+	visibility: hidden;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.modal-overlay.active{
+	opacity: 1;
+	visibility: visible;
+}
+
+.modal{
+	background: #F0F2F5;
+	padding: 2.4rem;
+}
+
+/* FORMS ==================== */
+#form{
+	max-width: 500px;
+}
+
+#form h2{
+	margin-top: 0;
+}
+
+input{
+	width: 100%;
+	padding: .8rem;
+	border: none;
+	border-radius: .2rem;
+}
+
+.input-group{
+	margin-top: .8rem;
+}
+
+.input-group small{
+	opacity: .4;
+}
+
+.input-group.actions{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.input-group.actions .button,
+.input-group.actions button{
+	width: 48%;
+}
+
+
 
 /* FOOTER ==================== */
 footer{
