@@ -34,16 +34,39 @@ const transactions = [
 
 // calculos
 const Transaction = {
+	all: transactions, // atalho para as acoes, expandindo para utilizar novamente em outras funcoes
+	
+	add(transaction){
+		Transaction.all.push(transaction)
+		App.reload()
+	},
+
 	incomes(){
-		
+		let income = 0;
+
+		Transaction.all.forEach(transaction => {
+			if(transaction.amount > 0){
+				income += transaction.amount;
+			}
+		})
+
+		return income;
 	},
 	
 	expenses(){
-		
+		let expense = 0;
+
+		Transaction.all.forEach(transaction => {
+			if(transaction.amount < 0){
+				expense += transaction.amount;
+			}
+		})
+
+		return expense;
 	},
 
 	total(){
-		
+		return Transaction.incomes() + Transaction.expenses();
 	}
 }
 
@@ -74,6 +97,16 @@ const DOM = {
 			</td>
 		`
 		return html
+	},
+
+	updateBalance(){
+		document.getElementById('incomeDisplay').innerHTML = Utils.formatCurrency(Transaction.incomes())
+		document.getElementById('expenseDisplay').innerHTML = Utils.formatCurrency(Transaction.expenses())
+		document.getElementById('totalDisplay').innerHTML = Utils.formatCurrency(Transaction.total())
+	},
+
+	clearTransactions(){
+		DOM.transactionsContainer.innerHTML = ""
 	}
 }
 
@@ -95,7 +128,26 @@ const Utils = {
 	}
 }
 
-// Funcionalidade para objetos array -> para cada elemento ira executar a funcionalidade
-transactions.forEach(function(transaction){
-	DOM.addTransaction(transaction)
+const App = {
+	init(){
+		// Funcionalidade para objetos array -> para cada elemento ira executar a funcionalidade
+		Transaction.all.forEach(transaction => {
+			DOM.addTransaction(transaction)
+		})
+
+		DOM.updateBalance()
+	},
+
+	reload(){
+		DOM.clearTransactions()
+		App.init()
+	},
+}
+
+App.init()
+
+Transaction.add({
+	id: 39,
+	description: 'Novo',
+	date: '23/01/2021'
 })
