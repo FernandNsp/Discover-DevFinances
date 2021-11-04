@@ -77,12 +77,13 @@ const DOM = {
 	// inserir os valores da Transaction de maneira dinâmica na tabela do HTML
 	addTransaction(transaction, index){
 		const tr = document.createElement('tr')
-		tr.innerHTML = DOM.innerHTMLTransaction(transaction)
+		tr.innerHTML = DOM.innerHTMLTransaction(transaction, index)
+		tr.dataset.index = index
 
 		DOM.transactionsContainer.appendChild(tr)
 	},
 
-	innerHTMLTransaction(transaction){
+	innerHTMLTransaction(transaction, index){
 		// verifica se o valor de entrada foi positivo ou negativo
 		const CSSclass = transaction.amount > 0 ? "income" : "expense"
 
@@ -93,7 +94,7 @@ const DOM = {
 			<td class="${CSSclass}">${amount}</td>
 			<td class="date">${transaction.date}</td>
 			<td>
-				<img src="./assets/minus.svg" alt="Remover transação">
+				<img onclick="Transaction.remove(${index})" src="./assets/minus.svg" alt="Remover transação">
 			</td>
 		`
 		return html
@@ -202,11 +203,8 @@ const Form = {
 
 const App = {
 	init(){
-		// Funcionalidade para objetos array -> para cada elemento ira executar a funcionalidade
-		Transaction.all.forEach(transaction => {
-			DOM.addTransaction(transaction)
-		})
-
+		/* Atalho: Funcionalidade para objetos array -> para cada elemento ira executar a funcionalidade -> como a funcao ira possuir apenas a chamada de addTransaction, pode ser deixado inline (passando o transaction e o index para o addTransaction). */
+		Transaction.all.forEach(DOM.addTransaction)
 		DOM.updateBalance()
 	},
 
