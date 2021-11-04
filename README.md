@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-  <img src="./assets/modelo.png" width="95%" alt="Notebook e celular com representação final do projeto" title="Projeto finalizado dev.finances">
+  <img src="./assets/modelo.png" alt="Notebook e celular com representação final do projeto" title="Projeto finalizado dev.finances">
 </p>
 
 ## 💻 Projeto
