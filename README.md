@@ -1,15 +1,15 @@
 <h1 align="center">
-	<img src="./assets/logo.svg" width="45%" alt="Logo dev.finances" title="dev.finances"/>
+	<img src="./assets/logo.svg" width="180px" alt="Logo dev.finances" title="dev.finances"/>
 </h1>
 
 <p align="center">
    <a href="#-Projeto">Projeto</a>&nbsp;&nbsp; | &nbsp;&nbsp;
    <a href="#-Tecnologias">Tecnologias</a>&nbsp;&nbsp; | &nbsp;&nbsp;
-   <a href="#-Layout">Layout</a>&nbsp;&nbsp; | &nbsp;&nbsp;
+   <a href="#-Layout">Layout</a>
 </p>
 
 <p align="center">
-  <img src="./assets/modelo.png" alt="Notebook e celular com representação final do projeto" title="Projeto finalizado dev.finances">
+  <img src="./assets/modelo.png" width="80%" alt="Notebook e celular com representação final do projeto" title="Projeto finalizado dev.finances">
 </p>
 
 ## 💻 Projeto
