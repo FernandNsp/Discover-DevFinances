@@ -202,7 +202,7 @@ const App = {
 		Transaction.all.forEach(DOM.addTransaction)
 		DOM.updateBalance()
 
-		// atualizando o localStorage
+		// atualizando o localStorage e atualizando a pagina
 		Storage.set(Transaction.all)
 	},
 
