@@ -8,36 +8,36 @@ const Modal = {
 	}
 }
 
-// valores das transacoes que estarao presentes nas tabelas
-const transactions = [
-	{
-		id: 1,
-		description: 'Luz',
-		amount: -50000,
-		date: '23/01/2021',
-	},
-
-	{
-		id: 2,
-		description: 'Website',
-		amount: 500000,
-		date: '23/01/2021',
-	},
-
-	{
-		id: 3,
-		description: 'Internet',
-		amount: -20000,
-		date: '23/01/2021',
-	},
-]
-
-// calculos
 const Transaction = {
-	all: transactions, // atalho para as acoes, expandindo para utilizar novamente em outras funcoes
+	/* valores das transacoes que estarao presentes nas tabelas;
+		atalho para as acoes, expandindo para utilizar novamente em outras funcoes */
+	all: [
+		{
+			description: 'Luz',
+			amount: -50000,
+			date: '23/01/2021',
+		},
+	
+		{
+			description: 'Website',
+			amount: 500000,
+			date: '23/01/2021',
+		},
+	
+		{
+			description: 'Internet',
+			amount: -20000,
+			date: '23/01/2021',
+		},
+	], 
 	
 	add(transaction){
 		Transaction.all.push(transaction)
+		App.reload()
+	},
+
+	remove(index){
+		Transaction.all.splice(index, 1)
 		App.reload()
 	},
 
@@ -111,6 +111,16 @@ const DOM = {
 }
 
 const Utils = {
+	formatAmount(value){
+		value = Number(value.replace(/\,\./g, "")) * 100
+		return value 
+	},
+
+	formatDate(value){
+		const splittedDate = value.split("-")
+		return `${splittedDate[2]}/${splittedDate[1]}/${splittedDate[0]}`
+	},
+
 	formatCurrency(value){
 		const signal = Number(value) < 0 ? "-" : ""
 
@@ -125,6 +135,68 @@ const Utils = {
 		})
 
 		return signal + value
+	}
+}
+
+const Form = {
+	// armazenar valores dos inputs para acessar em diferentes areas sem repetir codigo
+	description: document.querySelector('input#description'),
+	amount: document.querySelector('input#amount'),
+	date: document.querySelector('input#date'),
+
+	// Verificar se estao vazios ou nao
+	getValues(){
+		return {
+			description: Form.description.value,
+			amount: Form.amount.value,
+			date: Form.date.value,
+		}
+	},
+
+	validateFields(){
+		const {description, amount, date} = Form.getValues()
+		
+		if(description.trim() === "" || amount.trim() === "" || date.trim() === ""){
+			throw new Error("Por favor, preencha todos os campos!")
+		}
+	},
+
+	formatValues(){
+		let {description, amount, date} = Form.getValues()
+
+		amount = Utils.formatAmount(amount)
+		date = Utils.formatDate(date)
+
+		return{
+			description,
+			amount,
+			date,
+		}
+	},
+
+	saveTransaction(transaction){
+		Transaction.add(transaction)
+	},
+
+	clearFields(){
+		Form.description.value = ""
+		Form.amount.value = ""
+		Form.date.value = ""
+	},
+
+	submit(event){
+		// nao retornar na url os valores enviados
+		event.preventDefault()
+
+		try{
+			Form.validateFields()
+			const transaction = Form.formatValues()
+			Form.saveTransaction(transaction)
+			Form.clearFields()
+			Modal.close()
+		}catch(error){
+			alert(error.message)
+		}
 	}
 }
 
@@ -145,9 +217,3 @@ const App = {
 }
 
 App.init()
-
-Transaction.add({
-	id: 39,
-	description: 'Novo',
-	date: '23/01/2021'
-})
