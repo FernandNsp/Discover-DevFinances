@@ -70,7 +70,7 @@
 			<div class="modal">
 				<div id="form">
 					<h2>Nova Transação</h2>
-					<form action="">
+					<form action="" onsubmit="Form.submit(event)">
 						<div class="input-group">
 							<label 
 								class="sr-only"
@@ -92,8 +92,8 @@
 							<input 
 								type="number" 
 								step="0.01"
-								id="description" 
-								name="description"
+								id="amount" 
+								name="amount"
 								placeholder="0,00"
 							/>
 							<small>Use o sinal - (negativo) para despesas e , (vírgula) para casas decimais.</small>	
