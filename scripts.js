@@ -8,28 +8,23 @@ const Modal = {
 	}
 }
 
+/* funcao para armazenar localmente os valores inseridos pelo usuario, sendo assim, ao atualizar a pagina os dados inseridos nao serao perdidos */
+const Storage = {
+	get(){
+		// retorna um array transformando a string para array
+		return JSON.parse(localStorage.getItem('dev.finances:transactions')) || []
+	},
+
+	set(transactions){
+		/* objeto localStorage.setItem guarda um array, passando ela para string usando o objeto JSON com a funcionalidade stringify */
+		localStorage.setItem("dev.finances:transactions", JSON.stringify(transactions))
+	}
+}
+
 const Transaction = {
 	/* valores das transacoes que estarao presentes nas tabelas;
 		atalho para as acoes, expandindo para utilizar novamente em outras funcoes */
-	all: [
-		{
-			description: 'Luz',
-			amount: -50000,
-			date: '23/01/2021',
-		},
-	
-		{
-			description: 'Website',
-			amount: 500000,
-			date: '23/01/2021',
-		},
-	
-		{
-			description: 'Internet',
-			amount: -20000,
-			date: '23/01/2021',
-		},
-	], 
+	all: Storage.get(),
 	
 	add(transaction){
 		Transaction.all.push(transaction)
@@ -203,9 +198,12 @@ const Form = {
 
 const App = {
 	init(){
-		/* Atalho: Funcionalidade para objetos array -> para cada elemento ira executar a funcionalidade -> como a funcao ira possuir apenas a chamada de addTransaction, pode ser deixado inline (passando o transaction e o index para o addTransaction). */
+		/* Atalho: funcionalidade para objetos array -> para cada elemento ira executar a funcionalidade -> como a funcao ira possuir apenas a chamada de addTransaction, pode ser deixado inline (passando o transaction e o index para o addTransaction). */
 		Transaction.all.forEach(DOM.addTransaction)
 		DOM.updateBalance()
+
+		// atualizando o localStorage
+		Storage.set(Transaction.all)
 	},
 
 	reload(){
